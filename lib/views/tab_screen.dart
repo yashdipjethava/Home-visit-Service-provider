@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:voloc/views/booking_screen.dart';
 import 'package:voloc/views/home_screen.dart';
 import 'package:voloc/views/profile_screen.dart';
@@ -38,37 +39,39 @@ class _TabScreenState extends State<TabScreen> {
           body: activeScreen,
           bottomNavigationBar: BlocBuilder<TabIndexCubit, TabIndexState>(
             builder: (context, state) {
-              return BottomNavigationBar(
-                items: const [
-                  BottomNavigationBarItem(
-                      icon: Icon(
-                        Icons.home,
-                      ),
-                      label: 'Home',
-                      backgroundColor: Colors.black45),
-                  BottomNavigationBarItem(
-                      icon: Icon(
-                        Icons.search,
-                      ),
-                      label: 'Search'),
-                  BottomNavigationBarItem(
-                      icon: Icon(
-                        Icons.book_online,
-                      ),
-                      label: 'Booking'),
-                  BottomNavigationBarItem(
-                    icon: Icon(
-                      Icons.person,
+              return Container(
+                color: Colors.black45,
+                child: GNav(
+                  tabs: const [
+                    GButton(
+                        icon: 
+                          Icons.home,
+                        text: 'Home',
+                        backgroundColor: Colors.black45,
+                        ),
+                    GButton(
+                        icon: Icons.search,
+                        text: 'Search',
+                        backgroundColor: Colors.black45),
+                    GButton(
+                        icon:Icons.book_online,
+                        text: 'Booking',
+                        backgroundColor: Colors.black45),
+                    GButton(
+                      icon: Icons.person,
+                      text: 'Profile',
+                      backgroundColor: Colors.black45
                     ),
-                    label: 'Profile',
-                  ),
-                ],
-                currentIndex: state.index,
-                elevation: 2,
-                onTap: (value) {
-                  BlocProvider.of<TabIndexCubit>(context).changeTab(value);
-                  value = state.index;
-                },
+                  ],
+                  selectedIndex: state.index,
+                  onTabChange: (value) {
+                    BlocProvider.of<TabIndexCubit>(context).changeTab(value);
+                    value = state.index;
+                  },
+                  iconSize: 24,
+                  color: Colors.white,
+                  padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 12),
+                ),
               );
             },
           ),
