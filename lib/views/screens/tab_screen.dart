@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:voloc/views/booking_screen.dart';
-import 'package:voloc/views/home_screen.dart';
-import 'package:voloc/views/profile_screen.dart';
-import 'package:voloc/views/search_screen.dart';
+import 'package:voloc/core/themes/app_theme.dart';
+import 'package:voloc/views/screens/profile_screen.dart';
+import 'package:voloc/views/screens/search_screen.dart';
 
-import '../bloc/cubit/tab_index_cubit.dart';
+import '../../logic/cubit/tab_index_cubit.dart';
+import 'booking_screen.dart';
+import 'home_screen.dart';
 
 class TabScreen extends StatefulWidget {
   const TabScreen({super.key});
@@ -34,33 +35,33 @@ class _TabScreenState extends State<TabScreen> {
         return Scaffold(
           appBar: AppBar(
             title: const Text('VoLoc'),
-            backgroundColor: Colors.black45,
+            backgroundColor: kColorScheme.onSecondary,
           ),
           body: activeScreen,
           bottomNavigationBar: BlocBuilder<TabIndexCubit, TabIndexState>(
             builder: (context, state) {
               return Container(
-                color: Colors.black45,
+                color: kColorScheme.onSecondary,
                 child: GNav(
-                  tabs: const [
+                  tabs: [
                     GButton(
                         icon: 
                           Icons.home,
                         text: 'Home',
-                        backgroundColor: Colors.black45,
+                        backgroundColor: kColorScheme.onBackground,
                         ),
                     GButton(
                         icon: Icons.search,
                         text: 'Search',
-                        backgroundColor: Colors.black45),
+                        backgroundColor: kColorScheme.onBackground),
                     GButton(
                         icon:Icons.book_online,
                         text: 'Booking',
-                        backgroundColor: Colors.black45),
+                        backgroundColor: kColorScheme.onBackground),
                     GButton(
                       icon: Icons.person,
                       text: 'Profile',
-                      backgroundColor: Colors.black45
+                      backgroundColor: kColorScheme.onBackground
                     ),
                   ],
                   selectedIndex: state.index,
@@ -69,7 +70,7 @@ class _TabScreenState extends State<TabScreen> {
                     value = state.index;
                   },
                   iconSize: 24,
-                  color: Colors.white,
+                  color: kColorScheme.onPrimaryContainer,
                   padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 12),
                 ),
               );
