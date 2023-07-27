@@ -50,7 +50,6 @@ class _Tabs extends StatelessWidget {
           bottomNavigationBar: BlocBuilder<TabIndexCubit, TabIndexState>(
             builder: (context, state) {
               return Container(
-                height: 65,
                 color: kColorScheme.onSecondary,
                 child: GNav(
                   tabs: [
