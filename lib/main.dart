@@ -13,7 +13,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+<<<<<<< HEAD
       home: const LogInScreen(),
+=======
+      debugShowCheckedModeBanner: false,
+        home: BlocProvider(
+          create: (context) => TabIndexCubit(),
+          child: const TabScreen(),
+        ),
+>>>>>>> main
         theme: theme,
         darkTheme: darkTheme,
         );
