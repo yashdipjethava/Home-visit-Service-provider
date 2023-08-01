@@ -4,7 +4,6 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:voloc/core/themes/app_theme.dart';
 import 'package:voloc/views/screens/profile_screen.dart';
 import 'package:voloc/views/screens/search_screen.dart';
-
 import '../../logic/cubit/tab_index_cubit.dart';
 import 'booking_screen.dart';
 import 'home_screen.dart';
@@ -28,29 +27,26 @@ class _Tabs extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Widget activeScreen = const HomeScreen();
+    Widget activeScreen =  HomeScreen();
 
     return BlocBuilder<TabIndexCubit, TabIndexState>(
       builder: (context, state) {
         if (state.index == 0) {
-          activeScreen = const HomeScreen();
+          activeScreen =  HomeScreen();
         } else if (state.index == 1) {
-          activeScreen = const SearchScreen();
+          activeScreen =  SearchScreen();
         } else if (state.index == 2) {
-          activeScreen = const BookingScreen();
+          activeScreen =  BookingScreen();
         } else if (state.index == 3) {
-          activeScreen = const ProfileScreen();
+          activeScreen =  ProfileScreen();
         }
         return Scaffold(
-          appBar: AppBar(
-            title: const Text('VoLoc'),
-            backgroundColor: kColorScheme.onSecondary,
-          ),
           body: activeScreen,
           bottomNavigationBar: BlocBuilder<TabIndexCubit, TabIndexState>(
             builder: (context, state) {
               return Container(
                 color: kColorScheme.onSecondary,
+                height: 60,
                 child: GNav(
                   tabs: [
                     GButton(
