@@ -81,7 +81,6 @@ class _UserRegistrationState extends State<_UserRegistration> {
                   children: [
                     GestureDetector(
                       onTap: (){
-
                       },
                       child: CircleAvatar(
                         radius: 30,
