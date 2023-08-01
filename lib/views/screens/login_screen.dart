@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:voloc/logic/bloc/login/login_bloc.dart';
-import 'package:voloc/views/screens/tab_screen.dart';
+
 
 class LogInScreen extends StatelessWidget {
   const LogInScreen({super.key});
@@ -29,13 +29,17 @@ class _UserLogInState extends State<_UserLogIn> {
 
   final _password = TextEditingController();
 
+  void _onSignup(){
+    Navigator.pushNamed(context, '/signup');
+  }
+
   @override
   void dispose() {
     _email.dispose();
     _password.dispose();
     super.dispose();
   }
-
+  final loginKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     
@@ -54,6 +58,7 @@ class _UserLogInState extends State<_UserLogIn> {
             height: 40,
           ),
           Form(
+            key: loginKey,
             child: Padding(
               padding: const EdgeInsets.all(14.0),
               child: Column(
@@ -79,6 +84,7 @@ class _UserLogInState extends State<_UserLogIn> {
                         onChanged: (value) {
                           BlocProvider.of<LoginBloc>(context).add(LoginEmailChangedEvent(email: _email.text));
                         },
+                        
                       );
                     },
                   ),
@@ -113,6 +119,7 @@ class _UserLogInState extends State<_UserLogIn> {
                         onChanged: (value){
                           BlocProvider.of<LoginBloc>(context).add(LoginPasswordChangedEvent(password: _password.text));
                         },
+
                       );
                     },
                   ),
@@ -123,11 +130,11 @@ class _UserLogInState extends State<_UserLogIn> {
                     builder: (context, state) {
                       return ElevatedButton(onPressed: () {
                         if(state is LoginValidState){
-                        BlocProvider.of<LoginBloc>(context).add(LoginSubmitEvent(email: _email.text, password: _password.text));
-                        print(_email.text);
-                        print(_password.text);
+                          BlocProvider.of<LoginBloc>(context).add(LoginSubmitEvent(email: _email.text, password: _password.text));
+                          Navigator.pushNamed(context, '/tab');
+                          return;
                         }
-                        Navigator.push(context, MaterialPageRoute(builder: (ctx)=> const TabScreen()));
+                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Enter valid credentials')));
                       }, child: const Text('LogIn'));
                     },
                   )
@@ -135,6 +142,13 @@ class _UserLogInState extends State<_UserLogIn> {
               ),
             ),
           ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text('Don\'t have account yet?',style: TextStyle(fontSize: 18,),),
+              TextButton(onPressed: _onSignup, child: Text('Sign Up',style: TextStyle(color: Theme.of(context).primaryColor,fontSize: 18,fontWeight: FontWeight.bold),))
+            ],
+          )
         ],
       ),
       
