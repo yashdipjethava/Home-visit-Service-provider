@@ -46,6 +46,7 @@ class _Tabs extends StatelessWidget {
             builder: (context, state) {
               return Container(
                 color: kColorScheme.onSecondary,
+
                 height: 60,
                 child: GNav(
                   tabs: [
