@@ -19,7 +19,6 @@ class Register_screen extends StatelessWidget {
     );
   }
 }
-
 class _UserRegistration extends StatefulWidget {
   const _UserRegistration({Key? key}) : super(key: key);
 
