@@ -280,7 +280,7 @@ class _UserLogInState extends State<_UserLogIn> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => const Register_screen(),
+                                    builder: (context) => const SignUpScreen(),
                                   ));
                             },
                             child: Text(

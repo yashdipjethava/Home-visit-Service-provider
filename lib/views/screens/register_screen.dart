@@ -6,8 +6,8 @@ import 'package:voloc/views/screens/tab_screen.dart';
 
 import '../../logic/bloc/login/login_bloc.dart';
 
-class Register_screen extends StatelessWidget {
-  const Register_screen({Key? key}) : super(key: key);
+class SignUpScreen extends StatelessWidget {
+  const SignUpScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
