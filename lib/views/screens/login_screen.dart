@@ -5,7 +5,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:voloc/views/screens/register_screen.dart';
 import 'package:voloc/views/screens/tab_screen.dart';
-
 import '../../logic/bloc/login/login_bloc.dart';
 
 class LogInScreen extends StatelessWidget {
