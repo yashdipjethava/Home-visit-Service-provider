@@ -25,7 +25,6 @@ class _UserRegistration extends StatefulWidget {
   @override
   State<_UserRegistration> createState() => _UserRegistrationState();
 }
-
 class _UserRegistrationState extends State<_UserRegistration> {
   final _email = TextEditingController();
   final _password = TextEditingController();
