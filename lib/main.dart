@@ -1,24 +1,24 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:voloc/core/themes/app_theme.dart';
-import 'package:voloc/views/router/app_routing.dart';
 import 'package:voloc/views/screens/login_screen.dart';
 
-void main() {
-  runApp(MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(const MyApp());
 }
 
-
 class MyApp extends StatelessWidget {
-  MyApp({super.key});
+  const MyApp({super.key});
 
-  final _appRouter = AppRouting();
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
         home: const LogInScreen(),
         theme: theme,
         darkTheme: darkTheme,
-        onGenerateRoute: _appRouter.onGenerateRoute,
         );
   }
 }

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1052567144623",
+    "project_id": "voloc-abb25",
+    "storage_bucket": "voloc-abb25.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1052567144623:android:6bf093bbfb9515dcbe6c5a",
+        "android_client_info": {
+          "package_name": "com.example.voloc"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1052567144623-bb5eed29mm393ltikvj8s09eru5e023e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD5in9bEOAaBRvCiVxQgoCM7KIdHXoupi4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1052567144623-bb5eed29mm393ltikvj8s09eru5e023e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
