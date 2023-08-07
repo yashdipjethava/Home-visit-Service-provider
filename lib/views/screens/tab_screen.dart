@@ -27,12 +27,12 @@ class _Tabs extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Widget activeScreen =  HomeScreen();
+    Widget activeScreen =   const HomeScreen();
 
     return BlocBuilder<TabIndexCubit, TabIndexState>(
       builder: (context, state) {
         if (state.index == 0) {
-          activeScreen =  HomeScreen();
+          activeScreen =   const HomeScreen();
         } else if (state.index == 1) {
           activeScreen =  const SearchScreen();
         } else if (state.index == 2) {
