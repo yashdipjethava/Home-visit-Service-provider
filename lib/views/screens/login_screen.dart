@@ -274,97 +274,79 @@ class _UserLogInState extends State<_UserLogIn> {
                               ),
                             ),
                           ],
+                    ),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        
+                      },
+                      child: Center(
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Image.asset(
+                              'assets/icons/google.png',
+                              width: 35,
+                              height: 35,
+                            ),
+                           const  SizedBox(width: 20,),
+                            Image.asset(
+                              'assets/icons/github.png',
+                              width: 35,
+                              height: 35,
+                            ),
+                            const  SizedBox(width: 20,),
+                            Image.asset(
+                              'assets/icons/linkedin.png',
+                              width: 35,
+                              height: 35,
+                            ),
+                          ],
                         ),
-                        const SizedBox(
-                          height: 30,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          " Don't have an Account ? ",
+                          style: GoogleFonts.aBeeZee(
+                            fontSize: 18,
+                            color: Colors.grey.shade700,
+                          ),
                         ),
-                        BlocConsumer<LoginBloc, LoginState>(
-                          listener: (context, state) {
-                            if (state is LoginSubmitState) {
+                        TextButton(
+                            onPressed: () {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => const TabScreen()));
-                            }
-                          },
-                          builder: (context, state) {
-                            return GestureDetector(
-                              onTap: () {
-                                BlocProvider.of<LoginBloc>(context)
-                                    .add(LoginWithGoogleEvent());
-                              },
-                              child: Center(
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Image.asset(
-                                      'assets/icons/google.png',
-                                      width: 35,
-                                      height: 35,
-                                    ),
-                                    const SizedBox(
-                                      width: 20,
-                                    ),
-                                    Image.asset(
-                                      'assets/icons/github.png',
-                                      width: 35,
-                                      height: 35,
-                                    ),
-                                    const SizedBox(
-                                      width: 20,
-                                    ),
-                                    Image.asset(
-                                      'assets/icons/linkedin.png',
-                                      width: 35,
-                                      height: 35,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            );
-                          },
-                        ),
-                        const SizedBox(
-                          height: 30,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              " Don't have an Account ? ",
+                                    builder: (context) => const SignUpScreen(),
+                                  ));
+                            },
+                            child: Text(
+                              'Sign up',
                               style: GoogleFonts.aBeeZee(
-                                fontSize: 14,
-                                color: Colors.grey.shade700,
+                                  decoration: TextDecoration.underline,
+                                  fontSize: 20,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w600
                               ),
-                            ),
-                            TextButton(
-                                onPressed: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            const SignUpScreen(),
-                                      ));
-                                },
-                                child: Text(
-                                  'SignUp',
-                                  style: GoogleFonts.aBeeZee(
-                                      decoration: TextDecoration.underline,
-                                      fontSize: 16,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.w600),
-                                )),
-                          ],
-                        ),
+                            )),
                       ],
                     ),
-                  ),
+                  ],
                 ),
-              ],
+              ),
             ),
-          ),
-        );
-      },
+          ],
+        ),
+      ),
     );
-  }
+  });
+}
 }
