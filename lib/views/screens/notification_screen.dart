@@ -14,7 +14,7 @@ class _NotifyState extends State<Notify> {
     return Scaffold(
        appBar: AppBar(
          toolbarHeight: 45,
-          title: Text('Notification'),
+          title: const Text('Notification'),
          backgroundColor: kColorScheme.onSecondary,
        ),
     );

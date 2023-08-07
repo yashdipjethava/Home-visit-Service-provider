@@ -1,48 +1,77 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:voloc/core/themes/app_theme.dart';
 import 'package:voloc/data/models/models.dart';
 import 'package:voloc/views/screens/login_screen.dart';
 
+import '../../logic/bloc/user/user_bloc.dart';
+
 class HomeScreen extends StatelessWidget {
-   HomeScreen({super.key});
-
-  final GlobalKey<ScaffoldState> _key = GlobalKey();
-
-   _signout() async{
-        await FirebaseAuth.instance.signOut();
-       GoogleSignIn().signOut();
-   }
+  const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-     var name  = FirebaseAuth.instance.currentUser!.displayName;
-     var gmail = FirebaseAuth.instance.currentUser!.email;
-     var photo = FirebaseAuth.instance.currentUser!.photoURL;
+    return BlocProvider(
+      create: (context) => UserBloc()..add(LoadUserEvent()),
+      child: _HomeScreen(),
+    );
+  }
+}
+
+class _HomeScreen extends StatelessWidget {
+  _HomeScreen();
+
+  final GlobalKey<ScaffoldState> _key = GlobalKey();
+
+  _signout() async {
+    await FirebaseAuth.instance.signOut();
+    GoogleSignIn().signOut();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    
 
     return Scaffold(
-        key: _key,
-        drawer: Drawer(
-          backgroundColor: kColorScheme.onSecondary,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: ListView.builder(
-              itemCount: list.length,
-              itemBuilder: ( BuildContext context, int index) {
-                return ListTile(
-                  title: Text(list[index]['title'],style: TextStyle(fontSize: 17,color: Colors.white),),
-                  leading: Icon(list[index]['icon']),
-                  onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context) {
+      key: _key,
+      drawer: Drawer(
+        backgroundColor: kColorScheme.onSecondary,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: ListView.builder(
+            itemCount: list.length,
+            itemBuilder: (BuildContext context, int index) {
+              return ListTile(
+                title: Text(
+                  list[index]['title'],
+                  style: const TextStyle(fontSize: 17, color: Colors.white),
+                ),
+                leading: Icon(list[index]['icon']),
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(
+                    builder: (context) {
                       return list[index]['page'];
-                    },));
-                  },
-                );
-              },),
+                    },
+                  ));
+                },
+              );
+            },
           ),
         ),
-        body: Column(
+      ),
+      body: BlocBuilder<UserBloc, UserState>(
+        builder: (context, state) {
+          if(state.isLoading){
+            return const Center(child: CircularProgressIndicator());
+          }else if(state.error != null){
+            return Center(child: Text(state.error.toString()),);
+          }else{
+            final userEmail = state.userModel?.email;
+            final userName = state.userModel?.username;
+            final userImage = state.userModel?.image;
+            return Column(
             children: [
               Container(
                 height: 80,
@@ -52,55 +81,81 @@ class HomeScreen extends StatelessWidget {
                   //borderRadius: BorderRadius.only(bottomLeft: Radius.circular(25),bottomRight: Radius.circular(25)),
                 ),
                 child: Padding(
-                  padding: EdgeInsets.only(top:MediaQuery.of(context).size.width*0.06,left: MediaQuery.of(context).size.width*0.030,right: MediaQuery.of(context).size.width*0.030),
+                  padding: EdgeInsets.only(
+                      top: MediaQuery.of(context).size.width * 0.06,
+                      left: MediaQuery.of(context).size.width * 0.030,
+                      right: MediaQuery.of(context).size.width * 0.030),
                   child: Row(
-                    mainAxisAlignment:MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       GestureDetector(
-                          onTap: (){
-                            if(_key.currentState!.isDrawerOpen){
+                          onTap: () {
+                            if (_key.currentState!.isDrawerOpen) {
                               _key.currentState!.closeDrawer();
-                            }else{
+                            } else {
                               _key.currentState!.openDrawer();
                             }
                           },
-                          child: const Icon(Icons.menu,color: Colors.white,)
+                          child: const Icon(
+                            Icons.menu,
+                            color: Colors.white,
+                          )),
+                      const Text(
+                        'Log Out',
+                        style: TextStyle(color: Colors.white, fontSize: 20),
                       ),
-                      const Text('Log Out',style: TextStyle(color: Colors.white,fontSize: 20),),
                       GestureDetector(
-                          onTap: (){
+                          onTap: () {
                             _signout();
-                            if(FirebaseAuth.instance.currentUser == null ){
-                               Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
-                                return const LogInScreen();
-                              },));
-                            }else{
-                            }
+                            if (FirebaseAuth.instance.currentUser == null) {
+                              Navigator.pushReplacement(context,
+                                  MaterialPageRoute(
+                                builder: (context) {
+                                  return const LogInScreen();
+                                },
+                              ));
+                            } else {}
                           },
-                          child:const  Icon(Icons.logout,color: Colors.white,)
-                      ),
+                          child: const Icon(
+                            Icons.logout,
+                            color: Colors.white,
+                          )),
                     ],
                   ),
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.30),
+                padding: EdgeInsets.only(
+                    top: MediaQuery.of(context).size.height * 0.30),
                 child: Column(
                   children: [
-                    Text('$name',style: TextStyle(fontSize: 25,color: Colors.black),),
-                    SizedBox(height: 20,),
-                    Text('$gmail',style: TextStyle(fontSize: 20,color: Colors.black),),
-                    SizedBox(height: 20,),
+                    Text(
+                      '$userEmail',
+                      style: const TextStyle(fontSize: 25, color: Colors.black),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Text(
+                      '$userName',
+                      style: const TextStyle(fontSize: 20, color: Colors.black),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
                     CircleAvatar(
                       radius: 30,
-                      backgroundImage: NetworkImage('$photo'),
+                      backgroundImage: NetworkImage('$userImage'),
                     ),
                   ],
                 ),
               ),
-
             ],
-            ),
-        );
+          );
+          }
+          
+        },
+      ),
+    );
   }
 }

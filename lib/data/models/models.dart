@@ -6,11 +6,11 @@ import '../../views/screens/notification_screen.dart';
 import '../../views/screens/profile_screen.dart';
 
 final List<dynamic> list =[
-  { 'title' : 'HOME','icon': Icons.home , 'page' : ProfileScreen()},
-  { 'title' : 'NITIFICATION','icon': Icons.notification_add ,'page' : Notify()},
-  { 'title' : 'CHAT','icon': Icons.chat ,'page' : ProfileScreen()},
-  { 'title' : 'CATEGORY','icon': Icons.drag_indicator_sharp ,'page' : Notify()},
-  { 'title' : 'ABOUT','icon': Icons.info ,'page' : ProfileScreen()},
+  { 'title' : 'HOME','icon': Icons.home , 'page' : const ProfileScreen()},
+  { 'title' : 'NITIFICATION','icon': Icons.notification_add ,'page' : const Notify()},
+  { 'title' : 'CHAT','icon': Icons.chat ,'page' : const ProfileScreen()},
+  { 'title' : 'CATEGORY','icon': Icons.drag_indicator_sharp ,'page' : const Notify()},
+  { 'title' : 'ABOUT','icon': Icons.info ,'page' : const ProfileScreen()},
 ];
 
 

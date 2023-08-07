@@ -22,3 +22,10 @@ class PassVisibilityState extends LoginState{
    PassVisibilityState({required this.isOn});
   bool isOn;
 }
+
+class LoginLoadingState extends LoginState{}
+
+class ErrorState extends LoginState{
+  ErrorState({required this.error});
+  String error;
+}

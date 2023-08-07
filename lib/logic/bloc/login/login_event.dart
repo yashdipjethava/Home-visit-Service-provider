@@ -2,13 +2,9 @@ part of 'login_bloc.dart';
 
 abstract class LoginEvent {}
 
-class LoginEmailChangedEvent extends LoginEvent{
-  LoginEmailChangedEvent({required this.email});
+class LoginFieldChangedEvent extends LoginEvent{
+  LoginFieldChangedEvent({required this.email,required this.password});
   String? email;
-}
-
-class LoginPasswordChangedEvent extends LoginEvent{
-  LoginPasswordChangedEvent({required this.password});
   String? password;
 }
 
@@ -17,6 +13,8 @@ class LoginSubmitEvent extends LoginEvent{
   String? email;
   String? password;
 }
+
+class LoginWithGoogleEvent extends LoginEvent{}
 
 class PassVisibilityFalseEvent extends LoginEvent{  }
 
