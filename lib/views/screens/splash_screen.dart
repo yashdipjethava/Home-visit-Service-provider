@@ -1,16 +1,21 @@
 import 'dart:async';
 
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:voloc/views/screens/onbording_screen.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    Timer(const Duration(seconds: 5), () {
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const OnBoardingScreen(),));
+    Timer(const Duration(seconds: 5), () async {
+      final user = FirebaseAuth.instance.currentUser;
+      if(user == null){
+        Navigator.pushReplacementNamed(context, '/onboarding');
+      }else{
+        Navigator.pushReplacementNamed(context, '/tab');
+      }
     });
     return Scaffold(
       backgroundColor: Colors.black,

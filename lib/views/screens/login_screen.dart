@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:voloc/views/screens/signup_screen.dart';
-import 'package:voloc/views/screens/tab_screen.dart';
 import '../../logic/bloc/login/login_bloc.dart';
 import '../../logic/cubit/internet/cubit/internet_cubit.dart';
 
@@ -223,10 +221,7 @@ class _UserLogInState extends State<_UserLogIn> {
                             child: BlocConsumer<LoginBloc, LoginState>(
                               listener: (context, state) {
                                 if (state is LoginSubmitState) {
-                                  Navigator.pushReplacement(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (ctx) => const TabScreen()));
+                                  Navigator.pushReplacementNamed(context, '/tab');
                                 }else if (state is ErrorState) {
                                     ScaffoldMessenger.of(context).showSnackBar(
                                         SnackBar(content: Text(state.error)));
@@ -322,11 +317,7 @@ class _UserLogInState extends State<_UserLogIn> {
                         ),
                         TextButton(
                             onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => const SignUpScreen(),
-                                  ));
+                              Navigator.pushReplacementNamed(context, '/signup');
                             },
                             child: Text(
                               'Sign up',

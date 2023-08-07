@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:voloc/data/models/models.dart';
-import 'package:voloc/views/screens/login_screen.dart';
 
 class OnBoardingScreen extends StatefulWidget {
   const OnBoardingScreen({Key? key}) : super(key: key);
@@ -98,7 +97,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           if (_currentIndex == 2) {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => const LogInScreen(),));
+            Navigator.pushReplacementNamed(context, '/login');
           } else  {
             _pageController.nextPage(
                 duration: const Duration(microseconds: 300),
