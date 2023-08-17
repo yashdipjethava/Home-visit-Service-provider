@@ -35,13 +35,12 @@ class _UserLogIn extends StatefulWidget {
 class _UserLogInState extends State<_UserLogIn> {
   final _email = TextEditingController();
   final _password = TextEditingController();
-
-  // @override
-  // void dispose() {
-  //   _email.dispose();
-  //   _password.dispose();
-  //   super.dispose;
-  // }
+  @override
+  void dispose() {
+    _email.dispose();
+    _password.dispose();
+    super.dispose;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -72,40 +71,73 @@ class _UserLogInState extends State<_UserLogIn> {
           ),
           child: Scaffold(
             backgroundColor: Colors.transparent,
-            body: Stack(
-              children: [
-                Container(
-                  height: 200,
-                  width: double.infinity,
-                  decoration: const BoxDecoration(
-                      color: Colors.black,
-                      borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(40),
-                          bottomRight: Radius.circular(40))),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(
-                      left: screensize.width * 0.31,
-                      top: screensize.height * 0.1),
-                  child: Image.asset(
-                    'assets/img/login.png',
-                    height: 170,
-                    width: 170,
-                    fit: BoxFit.cover,
+            body: SingleChildScrollView(
+              child: Stack(
+                children: [
+                  Container(
+                    height: 200,
+                    width: double.infinity,
+                    decoration: const BoxDecoration(
+                        color: Colors.black,
+                        borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(40),
+                            bottomRight: Radius.circular(40))),
                   ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(
-                      left: screensize.width * 0.33,
-                      top: screensize.height * 0.31),
-                  child: Text('Welcome',
-                      style: GoogleFonts.roboto(
-                          color: Colors.grey.shade900,
-                          fontSize: 30,
-                          fontWeight: FontWeight.w500)),
-                ),
-                SingleChildScrollView(
-                  child: Container(
+                  Padding(
+                    padding:EdgeInsets.only(top:screensize.height * 0.05),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Container(
+                          child: PopupMenuButton(
+                            icon: Icon(Icons.more_vert,color: Colors.white,),
+                            itemBuilder: (context) => [
+                              PopupMenuItem(
+                                value: 1,
+                                child: Text("User" , style: TextStyle(color: Colors.white,fontSize: 18),),
+                                height: 30,
+
+                              ),
+                              PopupMenuItem(
+                                value: 2,
+                                child: Text("Admin" , style: TextStyle(color: Colors.white,fontSize: 18),),
+                                height: 30,
+                              ),
+                            ],
+                            onSelected: (value) {
+                              if (value == 2) {
+                                Navigator.pushNamed(context, "/admin");
+                              } else if (value == 1) {
+                                Navigator.pushReplacementNamed(context, "/login");
+                              }
+                            },
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(
+                        left: screensize.width * 0.31,
+                        top: screensize.height * 0.1),
+                    child: Image.asset(
+                      'assets/img/login.png',
+                      height: 170,
+                      width: 170,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(
+                        left: screensize.width * 0.33,
+                        top: screensize.height * 0.31),
+                    child: Text('Welcome',
+                        style: GoogleFonts.roboto(
+                            color: Colors.grey.shade900,
+                            fontSize: 30,
+                            fontWeight: FontWeight.w500)),
+                  ),
+                  Container(
                     padding: EdgeInsets.only(
                         top: screensize.height * .4, right: 35, left: 35),
                     child: Column(
@@ -196,7 +228,7 @@ class _UserLogInState extends State<_UserLogIn> {
                             );
                           },
                         ),
-                        
+
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
@@ -275,7 +307,7 @@ class _UserLogInState extends State<_UserLogIn> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        
+
                       },
                       child: Center(
                         child: Row(
@@ -283,18 +315,6 @@ class _UserLogInState extends State<_UserLogIn> {
                           children: [
                             Image.asset(
                               'assets/icons/google.png',
-                              width: 35,
-                              height: 35,
-                            ),
-                           const  SizedBox(width: 20,),
-                            Image.asset(
-                              'assets/icons/github.png',
-                              width: 35,
-                              height: 35,
-                            ),
-                            const  SizedBox(width: 20,),
-                            Image.asset(
-                              'assets/icons/linkedin.png',
                               width: 35,
                               height: 35,
                             ),
@@ -331,11 +351,11 @@ class _UserLogInState extends State<_UserLogIn> {
                       ],
                     ),
                   ],
+                  ),
                 ),
-              ),
-            ),
           ],
         ),
+            ),
       ),
     );
   });
