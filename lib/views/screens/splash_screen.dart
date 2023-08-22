@@ -3,16 +3,28 @@ import 'dart:async';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    Timer(const Duration(seconds: 5), () async {
+    Timer(const Duration(seconds: 3), () async {
       final user = FirebaseAuth.instance.currentUser;
       if(user == null){
-        Navigator.pushReplacementNamed(context, '/onboarding');
+        SharedPreferences preferences = await SharedPreferences.getInstance();
+        bool seen = (preferences.getBool('seen') ?? false);
+
+        if(seen){
+          // ignore: use_build_context_synchronously
+          Navigator.pushReplacementNamed(context, '/login');
+        }else{
+          await preferences.setBool('seen', true);
+          // ignore: use_build_context_synchronously
+          Navigator.pushReplacementNamed(context, '/onboarding');
+        }
+        
       }else{
         Navigator.pushReplacementNamed(context, '/tab');
       }

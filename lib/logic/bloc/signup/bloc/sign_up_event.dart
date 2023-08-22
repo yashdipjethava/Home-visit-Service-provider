@@ -30,7 +30,7 @@ class SignUpSubmitEvent extends SignUpEvent {
   String? number;
 }
 
-
+class EmailVerificationEvent extends SignUpEvent {}
 
 class PassVisibilityFalseEvent extends SignUpEvent {}
 

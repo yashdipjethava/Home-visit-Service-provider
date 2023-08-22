@@ -62,7 +62,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
 
                               ),
                             ),
-                            const SizedBox(height: 50),
+                            const SizedBox(height: 24),
                             Text(
                               tab.subtitle,
                               style: const TextStyle(
