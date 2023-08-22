@@ -361,7 +361,7 @@ class _UserRegistrationState extends State<_UserRegistration> {
                             child: BlocConsumer<SignUpBloc, SignUpState>(
                               listener: (context, state) {
                                 if(state is SignUpSubmitState){
-                                  Navigator.pushReplacementNamed(context, '/login');
+                                  Navigator.pushReplacementNamed(context, '/emailverify');
                                 }else if (state is ErrorState) {
                                       ScaffoldMessenger.of(context)
                                           .showSnackBar(SnackBar(
@@ -384,6 +384,7 @@ class _UserRegistrationState extends State<_UserRegistration> {
                                   child: BlocBuilder<SignUpBloc, SignUpState>(
                                     builder: (context, state) {
                                       if(state is SignUpLoadingState){
+                                        FocusScope.of(context).unfocus();
                                         return const CircularProgressIndicator();
                                       }
                                        return Text(

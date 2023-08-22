@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:voloc/data/models/user_model.dart';
+
 part 'login_event.dart';
 part 'login_state.dart';
 
@@ -32,11 +32,12 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       },
     );
 
+    
     on<LoginWithGoogleEvent>((event, emit) async {
       try {
         emit(LoginLoadingState());
+        
         final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-
         final GoogleSignInAuthentication? googleAuth =
             await googleUser?.authentication;
 
@@ -45,11 +46,11 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           idToken: googleAuth?.idToken,
         );
         await FirebaseAuth.instance.signInWithCredential(credential);
-        var name = FirebaseAuth.instance.currentUser?.displayName;
-        var gmail = FirebaseAuth.instance.currentUser?.email;
-        var photo = FirebaseAuth.instance.currentUser?.photoURL;
+        // var name = FirebaseAuth.instance.currentUser?.displayName;
+        // var gmail = FirebaseAuth.instance.currentUser?.email;
+        // var photo = FirebaseAuth.instance.currentUser?.photoURL;
 
-        UserModel(email: gmail!, image: photo!,username: name!,number: '0000000000');
+        // UserModel(email: gmail!, image: photo!,username: name!,number: '0000000000');
         emit(LoginSubmitState());
       } on FirebaseAuthException catch (error) {
         emit(ErrorState(error: error.message!));

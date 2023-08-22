@@ -46,29 +46,30 @@ class _UserLogInState extends State<_UserLogIn> {
   Widget build(BuildContext context) {
     var screensize = MediaQuery.of(context).size;
 
-    return BlocBuilder<InternetCubit, InternetState>(
-      builder: (context, state) {
-        if (state == InternetState.Lost) {
-          return const Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                CircularProgressIndicator(),
-                SizedBox(
-                  height: 10,
-                ),
-                Text(
-                  'Waiting for Internet',
-                  style: TextStyle(fontSize: 18),
-                )
-              ],
-            ),
-          );
-        }
-        return Container(
-          decoration: BoxDecoration(
-            color: Colors.grey.shade200,
+    return BlocBuilder<InternetCubit, InternetState>(builder: (context, state) {
+      if (state == InternetState.Lost) {
+        return const Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CircularProgressIndicator(),
+              SizedBox(
+                height: 10,
+              ),
+              Text(
+                'Waiting for Internet',
+                style: TextStyle(fontSize: 18),
+              )
+            ],
           ),
+
+        );
+      }
+      return Container(
+        decoration: BoxDecoration(
+          color: Colors.grey.shade200,
+        ),
+
           child: Scaffold(
             backgroundColor: Colors.transparent,
             body: SingleChildScrollView(
@@ -191,33 +192,75 @@ class _UserLogInState extends State<_UserLogIn> {
                             return TextFormField(
                               controller: _password,
                               decoration: InputDecoration(
+
                                 border: const OutlineInputBorder(
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(20)),
                                   borderSide: BorderSide(width: 4),
                                 ),
                                 errorText: error,
-                                label: const Text('Password'),
+                                label: const Text('Email'),
                                 labelStyle:
                                     TextStyle(color: Colors.grey.shade700),
-                                hintText: "Enter the Password",
+                                hintText: "Enter the Email",
                                 prefixIcon: const Icon(
-                                  Icons.lock_outline,
+                                  Icons.email_outlined,
                                   color: Colors.black26,
-                                ),
-                                suffixIcon: IconButton(
-                                  icon: Icon(visibility
-                                      ? Icons.visibility
-                                      : Icons.visibility_off),
-                                  onPressed: () {
-                                    visibility
-                                        ? BlocProvider.of<LoginBloc>(context)
-                                            .add(PassVisibilityFalseEvent())
-                                        : BlocProvider.of<LoginBloc>(context)
-                                            .add(PassVisibilityTrueEvent());
-                                  },
-                                ),
+                                )),
+                            keyboardType: TextInputType.emailAddress,
+                            onChanged: (value) {
+                              BlocProvider.of<LoginBloc>(context).add(
+                                  LoginFieldChangedEvent(
+                                      email: _email.text,
+                                      password: _password.text));
+                            },
+                          );
+                        },
+                      ),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      BlocBuilder<LoginBloc, LoginState>(
+                        builder: (context, state) {
+                          String? error;
+                          bool visibility = true;
+                          if (state is LoginPasswordInvalidState) {
+                            error = state.error;
+                          }
+                          if (state is PassVisibilityState) {
+                            visibility = state.isOn;
+                          }
+                          return TextFormField(
+                            controller: _password,
+                            decoration: InputDecoration(
+                              border: const OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(20)),
+                                borderSide: BorderSide(width: 4),
                               ),
+                              errorText: error,
+                              label: const Text('Password'),
+                              labelStyle:
+                                  TextStyle(color: Colors.grey.shade700),
+                              hintText: "Enter the Password",
+                              prefixIcon: const Icon(
+                                Icons.lock_outline,
+                                color: Colors.black26,
+                              ),
+                              suffixIcon: IconButton(
+                                icon: Icon(visibility
+                                    ? Icons.visibility
+                                    : Icons.visibility_off),
+                                onPressed: () {
+                                  visibility
+                                      ? BlocProvider.of<LoginBloc>(context)
+                                          .add(PassVisibilityFalseEvent())
+                                      : BlocProvider.of<LoginBloc>(context)
+                                          .add(PassVisibilityTrueEvent());
+                                },
+                              ),
+
+
                               obscureText: visibility,
                               onChanged: (value) {
                                 BlocProvider.of<LoginBloc>(context).add(
@@ -249,44 +292,77 @@ class _UserLogInState extends State<_UserLogIn> {
                             decoration: BoxDecoration(
                               color: Colors.grey.shade900,
                               borderRadius: BorderRadius.circular(20),
+
                             ),
-                            child: BlocConsumer<LoginBloc, LoginState>(
-                              listener: (context, state) {
-                                if (state is LoginSubmitState) {
-                                  Navigator.pushReplacementNamed(context, '/tab');
-                                }else if (state is ErrorState) {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                        SnackBar(content: Text(state.error)));
-                                  }
-                              },
-                              builder: (context, state) {
-                                return TextButton(onPressed: () async {
-                                  if (state is LoginValidState) {
-                                    BlocProvider.of<LoginBloc>(context).add(
-                                        LoginSubmitEvent(
-                                            email: _email.text,
-                                            password: _password.text));
-                                  }
-                                }, child: BlocBuilder<LoginBloc, LoginState>(
-                                  builder: (context, state) {
-                                    if (state is LoginLoadingState) {
-                                      return const Center(
-                                        child: CircularProgressIndicator(),
-                                      );
-                                    }
-                                    return Text(
-                                      'LOGIN',
-                                      style: GoogleFonts.roboto(
-                                          fontSize: 20,
-                                          color: const Color(0xE2EAF5FF),
-                                          fontWeight: FontWeight.w500),
+                            obscureText: visibility,
+                            onChanged: (value) {
+                              BlocProvider.of<LoginBloc>(context).add(
+                                  LoginFieldChangedEvent(
+                                      email: _email.text,
+                                      password: _password.text));
+                            },
+                          );
+                        },
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          TextButton(
+                              onPressed: () {},
+                              child: Text(
+                                'Forgot Password?',
+                                style: GoogleFonts.roboto(
+                                    color: Colors.black54, fontSize: 15),
+                              ))
+                        ],
+                      ),
+                      Padding(
+                        padding: EdgeInsets.all(screensize.width * 0.01),
+                        child: Container(
+                          height: 50,
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            color: Colors.grey.shade900,
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: BlocConsumer<LoginBloc, LoginState>(
+                            listener: (context, state) {
+                              if (state is LoginSubmitState) {
+                                Navigator.pushReplacementNamed(context, '/tab');
+                              } else if (state is ErrorState) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(content: Text(state.error))                              }
+                            },
+                            builder: (context, state) {
+                              return TextButton(onPressed: () async {
+                                if (state is LoginValidState) {
+                                  BlocProvider.of<LoginBloc>(context).add(
+                                      LoginSubmitEvent(
+                                          email: _email.text,
+                                          password: _password.text));
+                                }
+                              }, child: BlocBuilder<LoginBloc, LoginState>(
+                                builder: (context, state) {
+                                  if (state is LoginLoadingState) {
+                                    FocusScope.of(context).unfocus();
+                                    return const Center(
+                                      child: CircularProgressIndicator(),
                                     );
-                                  },
-                                ));
-                              },
-                            ),
+                                  }
+                                  return Text(
+                                    'LOGIN',
+                                    style: GoogleFonts.roboto(
+                                        fontSize: 20,
+                                        color: const Color(0xE2EAF5FF),
+                                        fontWeight: FontWeight.w500),
+                                  );
+                                },
+                              ));
+                            },
                           ),
                         ),
+
+
                         const SizedBox(
                           height: 30,
                         ),
@@ -320,33 +396,107 @@ class _UserLogInState extends State<_UserLogIn> {
                             ),
                           ],
                         ),
+
                       ),
-                    ),
-                    const SizedBox(
-                      height: 30,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          " Don't have an Account ? ",
-                          style: GoogleFonts.aBeeZee(
-                            fontSize: 18,
-                            color: Colors.grey.shade700,
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Or Login with',
+                            style: GoogleFonts.aBeeZee(
+                              fontSize: 18,
+                              color: Colors.grey.shade500,
+                            ),
                           ),
-                        ),
-                        TextButton(
-                            onPressed: () {
-                              Navigator.pushReplacementNamed(context, '/signup');
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      BlocConsumer<LoginBloc, LoginState>(
+                        listener: (context, state) {
+                          if(state is LoginSubmitState){
+                            Navigator.pushReplacementNamed(context, '/tab');
+                          }else if(state is ErrorState){
+                            ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(content: Text(state.error)));
+                          }
+                        },
+                        builder: (context, state) {
+                          return GestureDetector(
+                            onTap: () {
+                              BlocProvider.of<LoginBloc>(context).add(LoginWithGoogleEvent());
                             },
-                            child: Text(
-                              'Sign up',
-                              style: GoogleFonts.aBeeZee(
-                                  decoration: TextDecoration.underline,
-                                  fontSize: 20,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.w600
+                            child: Container(
+                              decoration: BoxDecoration(
+                                border: Border.all(color: Colors.black),
+                                borderRadius: const BorderRadius.all(Radius.circular(8))
                               ),
+
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Center(
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Image.asset(
+                                        'assets/icons/google.png',
+                                        width: 35,
+                                        height: 35,
+                                      ),
+                                      const Padding(
+                                        padding: EdgeInsets.only(left:8.0),
+                                        child: Text('SignIn with Google',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 18),),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            " Don't have an Account? ",
+                            style: GoogleFonts.aBeeZee(
+                              fontSize: 16,
+                              color: Colors.grey.shade700,
+                            ),
+                          ),
+                          TextButton(
+                              onPressed: () {
+                                Navigator.pushReplacementNamed(
+                                    context, '/signup');
+                              },
+                              child: Text(
+                                'SignUp',
+                                style: GoogleFonts.aBeeZee(
+                                    fontSize: 16,
+                                    color: Colors.blue,
+                                    fontWeight: FontWeight.w600),
+                              )),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+    });
+  }
+
                             )),
                       ],
                     ),
@@ -359,5 +509,5 @@ class _UserLogInState extends State<_UserLogIn> {
       ),
     );
   });
-}
+
 }

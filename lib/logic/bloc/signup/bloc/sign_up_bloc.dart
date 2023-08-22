@@ -5,7 +5,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 
-
 part 'sign_up_event.dart';
 part 'sign_up_state.dart';
 
@@ -44,6 +43,18 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
         emit(PassVisibilityState(isOn: true));
       },
     );
+
+    on<EmailVerificationEvent>((event, emit) async {
+      bool isEmailVerified = FirebaseAuth.instance.currentUser!.emailVerified;
+
+      if (!isEmailVerified) {
+        await FirebaseAuth.instance.currentUser!.sendEmailVerification();
+
+        isEmailVerified = FirebaseAuth.instance.currentUser!.emailVerified;
+      } else {
+        emit(EmailVerificationState(isEmailVerified: isEmailVerified));
+      }
+    });
 
     on<SignUpSubmitEvent>((event, emit) async {
       try {

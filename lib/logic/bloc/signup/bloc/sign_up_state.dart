@@ -40,7 +40,10 @@ class PassVisibilityState extends SignUpState {
   bool isOn;
 }
 
-
+class EmailVerificationState extends SignUpState{
+  EmailVerificationState({required this.isEmailVerified});
+  bool isEmailVerified;
+}
 
 class ErrorState extends SignUpState {
   ErrorState({this.error});
