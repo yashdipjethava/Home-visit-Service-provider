@@ -2,7 +2,11 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:voloc/core/themes/app_theme.dart';
 import 'package:voloc/views/router/app_routing.dart';
+<<<<<<< HEAD
 import 'package:voloc/views/screens/admin/add_data_screen.dart';
+=======
+import 'package:voloc/views/screens/login_screen.dart';
+>>>>>>> 712881cfc20c5d81e2b903154d8879472aaa2f3d
 import 'package:voloc/views/screens/splash_screen.dart';
 
 void main() async {

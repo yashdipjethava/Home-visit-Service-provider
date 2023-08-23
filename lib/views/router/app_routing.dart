@@ -1,7 +1,11 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+<<<<<<< HEAD
 import 'package:voloc/views/screens/emailverify_screen.dart';
+=======
+import 'package:voloc/views/screens/Admin_screen.dart';
+>>>>>>> 712881cfc20c5d81e2b903154d8879472aaa2f3d
 import 'package:voloc/views/screens/home_screen.dart';
 import 'package:voloc/views/screens/login_screen.dart';
 import 'package:voloc/views/screens/onbording_screen.dart';
@@ -35,8 +39,13 @@ class AppRouting{
         return MaterialPageRoute(builder: (_)=>const OnBoardingScreen());
       case '/booking':
         return MaterialPageRoute(builder: (_)=>const SignUpScreen());
+<<<<<<< HEAD
       case '/emailverify':
         return MaterialPageRoute(builder: (_) => const EmailVerifyScreen());
+=======
+      case '/admin':
+        return MaterialPageRoute(builder: (_)=>const AdminScreen());
+>>>>>>> 712881cfc20c5d81e2b903154d8879472aaa2f3d
       default:
         return null;
     }

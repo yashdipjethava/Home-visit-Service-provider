@@ -56,3 +56,27 @@ class SplashScreen extends StatelessWidget {
     );
   }
 }
+//
+//
+// DropdownButton(
+// focusColor: Colors.white,
+// iconEnabledColor: Colors.white,
+// iconDisabledColor: Colors.white,
+// isDense: true,
+// value: defaultval,
+// items: [
+// DropdownMenuItem(
+// child: Text("User"),
+// value: 'User',
+// ),
+// DropdownMenuItem(
+// child: Text("Admin"),
+// value: 'Admin',
+// ),
+// ],
+// onChanged: (String? value) {
+// setState(() {
+// defaultval = value.toString();
+// });
+// },
+// ),
