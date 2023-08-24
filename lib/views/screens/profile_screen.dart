@@ -26,16 +26,18 @@ class _ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Your Profile'),
+        centerTitle: true,
+      ),
       body: BlocBuilder<UserBloc, UserState>(
         builder: (context, state) {
-          if(state.isLoading){
-            return const Center(child: CircularProgressIndicator());
-          }else if(state.error != null){
-            return Center(child: Text(state.error.toString()),);
-          }else{
-            final userEmail = state.userModel?.email;
+          final userEmail = state.userModel?.email;
             final userName = state.userModel?.username;
-            final userImage = state.userModel?.image;
+            final userImage =state.userModel?.image;
+          if(state.error != null){
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(state.error!)));
+          }
           return SingleChildScrollView(
             child: Column(
               children: [
@@ -44,18 +46,19 @@ class _ProfileScreen extends StatelessWidget {
                   child: SizedBox(
                     width: 120,
                     height: 120,
-                    child: CircleAvatar(
+                    child: state.isLoading ? const CircleAvatar(radius: 30,backgroundImage: AssetImage('assets/img/person.png'),) :CircleAvatar(
                       radius: 30,
-                      backgroundImage: NetworkImage('$userImage'),),
+                      backgroundImage: const AssetImage('assets/img/person.png'),
+                      foregroundImage: NetworkImage('$userImage'),),
                   ),
                 ),
                 const SizedBox(height: 10),
                 Text(
-                  '$userName',
+                  state.isLoading ? 'UserName' :'$userName',
                   style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
                 ),
                 Text(
-                  '$userEmail',
+                   state.isLoading ? 'Email' :'$userEmail',
                   style: const TextStyle(fontWeight: FontWeight.normal, fontSize: 20),
                 ),
                 const SizedBox(height: 20),
@@ -97,7 +100,6 @@ class _ProfileScreen extends StatelessWidget {
               ],
             ),
           );
-          }
         },
       ),
     );

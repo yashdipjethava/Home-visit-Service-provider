@@ -26,7 +26,11 @@ class SplashScreen extends StatelessWidget {
         }
         
       }else{
-        Navigator.pushReplacementNamed(context, '/tab');
+        if(FirebaseAuth.instance.currentUser!.email == 'pyajfoundation0211@gmail.com'){
+          Navigator.pushNamed(context, '/adddata');
+        }else{
+          Navigator.pushReplacementNamed(context, '/tab');
+        }
       }
     });
     return Scaffold(
