@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:voloc/core/themes/app_theme.dart';
 import '../../logic/bloc/user/user_bloc.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -132,7 +131,7 @@ class profileMenuWidget extends StatelessWidget {
         height: 40,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(100),
-          color: kColorScheme.inversePrimary.withOpacity(0.8),
+          color: Colors.orangeAccent,
         ),
         child: Icon(icon, color: Colors.white),
       ),

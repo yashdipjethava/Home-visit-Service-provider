@@ -1,6 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:voloc/core/themes/app_theme.dart';
 import 'package:voloc/views/router/app_routing.dart';
 import 'package:voloc/views/screens/splash_screen.dart';
 
@@ -21,8 +20,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: const SplashScreen(),
       onGenerateRoute: _appRouter.onGenerateRoute,
-      theme: theme,
-      darkTheme: darkTheme,
+      theme: ThemeData.light(),
     );
   }
 }
