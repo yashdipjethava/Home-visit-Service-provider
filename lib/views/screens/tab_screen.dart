@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:voloc/core/themes/app_theme.dart';
 import 'package:voloc/views/screens/profile_screen.dart';
 import 'package:voloc/views/screens/search_screen.dart';
 import '../../logic/cubit/tab_index_cubit.dart';
@@ -44,29 +43,28 @@ class _Tabs extends StatelessWidget {
           body: activeScreen,
           bottomNavigationBar: BlocBuilder<TabIndexCubit, TabIndexState>(
             builder: (context, state) {
-              return Container(
-                color: kColorScheme.onSecondary,
-
+              return SizedBox(
                 height: 60,
                 child: GNav(
-                  tabs: [
+                  backgroundColor: Colors.orangeAccent,
+                  tabs: const [
                     GButton(
                       icon: Icons.home,
                       text: 'Home',
-                      backgroundColor: kColorScheme.onBackground,
+                      backgroundColor: Colors.white,
                     ),
                     GButton(
                         icon: Icons.search,
                         text: 'Search',
-                        backgroundColor: kColorScheme.onBackground),
+                        backgroundColor: Colors.white),
                     GButton(
                         icon: Icons.book_online,
                         text: 'Booking',
-                        backgroundColor: kColorScheme.onBackground),
+                        backgroundColor: Colors.white),
                     GButton(
                         icon: Icons.person,
                         text: 'Profile',
-                        backgroundColor: kColorScheme.onBackground),
+                        backgroundColor: Colors.white),
                   ],
                   selectedIndex: state.index,
                   onTabChange: (value) {
@@ -74,7 +72,6 @@ class _Tabs extends StatelessWidget {
                     value = state.index;
                   },
                   iconSize: 24,
-                  color: kColorScheme.onPrimaryContainer,
                   padding:
                       const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                 ),
