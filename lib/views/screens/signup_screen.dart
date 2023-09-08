@@ -136,14 +136,7 @@ class _UserRegistrationState extends State<_UserRegistration> {
 
                                 imageFile = File(pickedImage!.path);
                                 // ignore: use_build_context_synchronously
-                                BlocProvider.of<SignUpBloc>(context).add(
-                                    SignUpFieldChangeEvent(
-                                      selectedImage: imageFile,
-                                        username: _username.text,
-                                        number: _mobileno.text,
-                                        email: _email.text,
-                                        password: _password.text,
-                                        ));
+                                BlocProvider.of<SignUpBloc>(context).add(SignUpFieldChangeEvent(email: _email.text, password: _password.text, selectedImage: imageFile, number: _mobileno.text, username: _username.text));
                               },
                               child: CircleAvatar(
                                 radius: 40,
@@ -158,6 +151,7 @@ class _UserRegistrationState extends State<_UserRegistration> {
                                 ),
                               ),
                             );
+                            
                           },
                         ),
                         BlocBuilder<SignUpBloc, SignUpState>(
@@ -201,15 +195,6 @@ class _UserRegistrationState extends State<_UserRegistration> {
                                     color: Colors.black26,
                                   ),
                                   errorText: error),
-                              onChanged: (value) {
-                                BlocProvider.of<SignUpBloc>(context).add(
-                                    SignUpFieldChangeEvent(
-                                        selectedImage: imageFile,
-                                        username: _username.text,
-                                        number: _mobileno.text,
-                                        email: _email.text,
-                                        password: _password.text,));
-                              },
                             );
                           },
                         ),
@@ -239,15 +224,6 @@ class _UserRegistrationState extends State<_UserRegistration> {
                                     color: Colors.black26,
                                   ),errorText: error),
                               keyboardType: TextInputType.number,
-                              onChanged: (value) {
-                                BlocProvider.of<SignUpBloc>(context).add(
-                                    SignUpFieldChangeEvent(
-                                        selectedImage: imageFile,
-                                        username: _username.text,
-                                        number: _mobileno.text,
-                                        email: _email.text,
-                                        password: _password.text,));
-                              },
                             );
                           },
                         ),
@@ -278,15 +254,6 @@ class _UserRegistrationState extends State<_UserRegistration> {
                                     color: Colors.black26,
                                   )),
                               keyboardType: TextInputType.emailAddress,
-                              onChanged: (value) {
-                                BlocProvider.of<SignUpBloc>(context).add(
-                                    SignUpFieldChangeEvent(
-                                        selectedImage: imageFile,
-                                        username: _username.text,
-                                        number: _mobileno.text,
-                                        email: _email.text,
-                                        password: _password.text,));
-                              },
                             );
                           },
                         ),
@@ -334,15 +301,6 @@ class _UserRegistrationState extends State<_UserRegistration> {
                                 ),
                               ),
                               obscureText: visibility,
-                              onChanged: (value) {
-                                BlocProvider.of<SignUpBloc>(context).add(
-                                    SignUpFieldChangeEvent(
-                                        selectedImage: imageFile,
-                                        username: _username.text,
-                                        number: _mobileno.text,
-                                        email: _email.text,
-                                        password: _password.text,));
-                              },
                             );
                           },
                         ),
@@ -361,16 +319,36 @@ class _UserRegistrationState extends State<_UserRegistration> {
                             child: BlocConsumer<SignUpBloc, SignUpState>(
                               listener: (context, state) {
                                 if(state is SignUpSubmitState){
-                                  Navigator.pushReplacementNamed(context, '/emailverify');
+                                  Navigator.pushReplacementNamed(context, '/tab');
                                 }else if (state is ErrorState) {
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(SnackBar(
-                                              content: Text(state.error!)));
+                                      showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return AlertDialog(
+                                      content: Text(
+                                          state.error!),
+                                      actions: [
+                                        TextButton(
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                            },
+                                            child: const Text("Okay"))
+                                      ],
+                                    );
+                                  });
                                     }
                               },
                               builder: (context, state) {
                                 return TextButton(
                                   onPressed: () {
+                                    BlocProvider.of<SignUpBloc>(context).add(
+                                    SignUpFieldChangeEvent(
+                                      selectedImage: imageFile,
+                                        username: _username.text,
+                                        number: _mobileno.text,
+                                        email: _email.text,
+                                        password: _password.text,
+                                        ));
                                     if (state is SignUpValidState) {
                                       BlocProvider.of<SignUpBloc>(context).add(
                                           SignUpSubmitEvent(

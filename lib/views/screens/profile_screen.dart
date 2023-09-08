@@ -73,12 +73,6 @@ class _ProfileScreen extends StatelessWidget {
                   style: const TextStyle(
                       fontWeight: FontWeight.normal, fontSize: 20),
                 ),
-                const SizedBox(height: 20),
-                SizedBox(
-                  width: 200,
-                  child: ElevatedButton(
-                      onPressed: () {}, child: const Text('Edit profile')),
-                ),
                 const SizedBox(height: 30),
                 const Divider(thickness: 0.1),
                 const SizedBox(height: 02),

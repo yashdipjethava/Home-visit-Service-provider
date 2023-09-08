@@ -92,7 +92,7 @@ class _UserLogInState extends State<_UserLogIn> {
                               child: Text(
                                 "User",
                                 style: TextStyle(
-                                    color: Colors.white, fontSize: 18),
+                                    color: Colors.black, fontSize: 18),
                               ),
                             ),
                             const PopupMenuItem(
@@ -101,7 +101,7 @@ class _UserLogInState extends State<_UserLogIn> {
                               child: Text(
                                 "Admin",
                                 style: TextStyle(
-                                    color: Colors.white, fontSize: 18),
+                                    color: Colors.black, fontSize: 18),
                               ),
                             ),
                           ],
@@ -168,12 +168,6 @@ class _UserLogInState extends State<_UserLogIn> {
                                   color: Colors.black26,
                                 )),
                             keyboardType: TextInputType.emailAddress,
-                            onChanged: (value) {
-                              BlocProvider.of<LoginBloc>(context).add(
-                                  LoginFieldChangedEvent(
-                                      email: _email.text,
-                                      password: _password.text));
-                            },
                           );
                         },
                       ),
@@ -193,12 +187,6 @@ class _UserLogInState extends State<_UserLogIn> {
                           return TextFormField(
                               controller: _password,
                               obscureText: visibility,
-                              onChanged: (value) {
-                                BlocProvider.of<LoginBloc>(context).add(
-                                    LoginFieldChangedEvent(
-                                        email: _email.text,
-                                        password: _password.text));
-                              },
                               decoration: InputDecoration(
                                 border: const OutlineInputBorder(
                                   borderRadius:
@@ -256,12 +244,30 @@ class _UserLogInState extends State<_UserLogIn> {
                                   Navigator.pushReplacementNamed(
                                       context, '/tab');
                                 } else if (state is ErrorState) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(content: Text(state.error)));
+                                  showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return AlertDialog(
+                                      content: Text(
+                                          state.error),
+                                      actions: [
+                                        TextButton(
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                            },
+                                            child: const Text("Okay"))
+                                      ],
+                                    );
+                                  });
                                 }
                               },
                               builder: (context, state) {
                                 return TextButton(onPressed: () async {
+                                  BlocProvider.of<LoginBloc>(context).add(
+                                  LoginFieldChangedEvent(
+                                      email: _email.text,
+                                      password: _password.text));
+
                                   if (state is LoginValidState) {
                                     BlocProvider.of<LoginBloc>(context).add(
                                         LoginSubmitEvent(

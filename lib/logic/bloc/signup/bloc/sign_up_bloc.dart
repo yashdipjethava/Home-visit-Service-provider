@@ -45,15 +45,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     );
 
     on<EmailVerificationEvent>((event, emit) async {
-      bool isEmailVerified = FirebaseAuth.instance.currentUser!.emailVerified;
-
-      if (!isEmailVerified) {
         await FirebaseAuth.instance.currentUser!.sendEmailVerification();
-
-        isEmailVerified = FirebaseAuth.instance.currentUser!.emailVerified;
-      } else {
-        emit(EmailVerificationState(isEmailVerified: isEmailVerified));
-      }
     });
 
     on<SignUpSubmitEvent>((event, emit) async {
