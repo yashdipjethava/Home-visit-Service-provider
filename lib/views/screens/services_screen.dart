@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-
 import '../common_widget/jobWidget.dart';
 
 class ServiceScreen extends StatelessWidget {
@@ -33,32 +32,33 @@ class ServiceScreen extends StatelessWidget {
                 }
 
                 final recordData = snapshot.data!.docs;
-                return ListView.builder(
-                  itemCount: recordData.length,
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemBuilder: (context, index) {
-                    final records =
-                        recordData[index].data() as Map<String, dynamic>;
+                return Expanded(
+                  child: ListView.builder(
+                    itemCount: recordData.length,
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      final records =
+                          recordData[index].data() as Map<String, dynamic>;
 
-                    // Check if image URL is available before creating the widget
-                    if (records.containsKey('image') &&
-                        records['image'] != null) {
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 15, vertical: 5),
-                        child: JobWidget(
-                          title: records['title'],
-                          details: records['details'],
-                          image: records['image'],
-                          price: records['price'],
-                        ),
-                      );
-                    } else {
-                      return const SizedBox
-                          .shrink(); // Empty widget if image is not available
-                    }
-                  },
+                      // Check if image URL is available before creating the widget
+                      if (records.containsKey('image') &&
+                          records['image'] != null) {
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 15, vertical: 5),
+                          child: JobWidget(
+                            title: records['title'],
+                            details: records['details'],
+                            image: records['image'],
+                            price: records['price'],
+                          ),
+                        );
+                      } else {
+                        return const SizedBox
+                            .shrink(); // Empty widget if image is not available
+                      }
+                    },
+                  ),
                 );
               },
             ),

@@ -92,7 +92,7 @@ class _UserLogInState extends State<_UserLogIn> {
                               child: Text(
                                 "User",
                                 style: TextStyle(
-                                    color: Colors.white, fontSize: 18),
+                                    color: Colors.black, fontSize: 18),
                               ),
                             ),
                             const PopupMenuItem(
@@ -101,7 +101,7 @@ class _UserLogInState extends State<_UserLogIn> {
                               child: Text(
                                 "Admin",
                                 style: TextStyle(
-                                    color: Colors.white, fontSize: 18),
+                                    color: Colors.black, fontSize: 18),
                               ),
                             ),
                           ],
