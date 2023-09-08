@@ -83,9 +83,6 @@ class _AddDataState extends State<AddData> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Add Place'),
-      ),
       body: SingleChildScrollView(
           padding: const EdgeInsets.all(12.0),
           child: Form(
@@ -98,6 +95,11 @@ class _AddDataState extends State<AddData> {
                       'Title',
                       style: TextStyle(color: Colors.black),
                     ),
+                    border: OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(20)),
+                                  borderSide: BorderSide(width: 4),
+                                ),
                   ),
                   validator: (value) {
                     if (_titleController.text.trim().isEmpty) {
@@ -139,21 +141,29 @@ class _AddDataState extends State<AddData> {
                           ),
                   ),
                 ),
-                TextFormField(
-                  decoration: const InputDecoration(
-                    label: Text(
-                      'Price',
-                      style: TextStyle(color: Colors.black),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextFormField(
+                    decoration: const InputDecoration(
+                      label: Text(
+                        'Price',
+                        style: TextStyle(color: Colors.black),
+                      ),
+                      border: OutlineInputBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(20)),
+                                    borderSide: BorderSide(width: 4),
+                                  ),
                     ),
+                    validator: (value) {
+                      if (_priceController.text.trim().isEmpty) {
+                        return 'Enter price';
+                      }
+                      return null;
+                    },
+                    controller: _priceController,
+                    keyboardType: TextInputType.number,
                   ),
-                  validator: (value) {
-                    if (_priceController.text.trim().isEmpty) {
-                      return 'Enter price';
-                    }
-                    return null;
-                  },
-                  controller: _priceController,
-                  keyboardType: TextInputType.number,
                 ),
                 const SizedBox(
                   height: 10,
@@ -164,6 +174,11 @@ class _AddDataState extends State<AddData> {
                       'Details',
                       style: TextStyle(color: Colors.black),
                     ),
+                    border: OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(20)),
+                                  borderSide: BorderSide(width: 4),
+                                ),
                   ),
                   validator: (value) {
                     if (_detailsController.text.trim().isEmpty ||
@@ -173,8 +188,8 @@ class _AddDataState extends State<AddData> {
                     return null;
                   },
                   controller: _detailsController,
-                  maxLength: 1000,
-                  maxLines: 10,
+                  maxLength: 10000,
+                  maxLines: 30,
                 ),
                 const SizedBox(
                   height: 30,

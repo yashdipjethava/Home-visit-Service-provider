@@ -1,4 +1,7 @@
+// ignore_for_file: prefer_typing_uninitialized_variables, use_key_in_widget_constructors
+
 import 'package:flutter/material.dart';
+import 'package:voloc/views/screens/service_book_screen.dart';
 
 class JobDetailWidget extends StatelessWidget {
   const JobDetailWidget({
@@ -18,6 +21,7 @@ class JobDetailWidget extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Service Details'),
+        backgroundColor: Colors.orange,
       ),
       body: Column(
         children: [
@@ -25,10 +29,12 @@ class JobDetailWidget extends StatelessWidget {
             child: ListView(
               children: [
                 // Product image
-                Image.network(
-                  '$image',
-                  height: MediaQuery.of(context).size.height / 1.8,
-                  fit: BoxFit.fill,
+                Hero(
+                  tag: image,
+                  child: FadeInImage(placeholder: NetworkImage(
+                    '$image',
+                  ), image: NetworkImage('$image'),height: MediaQuery.of(context).size.height / 2,
+                    fit: BoxFit.fill,),
                 ),
 
                 // Product title
@@ -71,7 +77,9 @@ class JobDetailWidget extends StatelessWidget {
                 color: Colors.orangeAccent
               ),
               child: TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context).push(MaterialPageRoute(builder: (_)=>ServiceBookScreen(title: title,image: image,details: details,price: price,)));
+                },
                 child: const Text('BOOK NOW',style: TextStyle(color: Colors.black87),),
               ),
             ),
