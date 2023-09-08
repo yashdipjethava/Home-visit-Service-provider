@@ -33,7 +33,7 @@ class _Tabs extends StatelessWidget {
         if (state.index == 0) {
           activeScreen =   const HomeScreen();
         } else if (state.index == 1) {
-          activeScreen =  const SearchScreen();
+          activeScreen =  SearchScreen();
         } else if (state.index == 2) {
           activeScreen =  const BookingScreen();
         } else if (state.index == 3) {

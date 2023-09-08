@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-
 import '../common_widget/jobWidget.dart';
 
 class ServiceScreen extends StatelessWidget {
@@ -10,38 +9,38 @@ class ServiceScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          title: const Text("All Services"),
-          backgroundColor: Colors.orange,
-        ),
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              const SizedBox(
-                height: 20,
-              ),
-              StreamBuilder(
-                stream:
-                    FirebaseFirestore.instance.collection('services').snapshots(),
-                builder: (BuildContext context,
-                    AsyncSnapshot<QuerySnapshot> snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const CircularProgressIndicator(); // Show loading indicator while data is loading
-                  }
-        
-                  if (snapshot.hasError) {
-                    return Text('Error: ${snapshot.error}');
-                  }
-        
-                  final recordData = snapshot.data!.docs;
-                  return ListView.builder(
+        body: Column(
+          children: [
+            const SizedBox(
+              height: 20,
+            ),
+            const Text(
+              "OUR ALL SERVICES",
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+            StreamBuilder(
+              stream:
+                  FirebaseFirestore.instance.collection('services').snapshots(),
+              builder: (BuildContext context,
+                  AsyncSnapshot<QuerySnapshot> snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const CircularProgressIndicator(); // Show loading indicator while data is loading
+                }
+
+                if (snapshot.hasError) {
+                  return Text('Error: ${snapshot.error}');
+                }
+
+                final recordData = snapshot.data!.docs;
+                return Expanded(
+                  child: ListView.builder(
                     itemCount: recordData.length,
                     shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
                     itemBuilder: (context, index) {
                       final records =
                           recordData[index].data() as Map<String, dynamic>;
-        
+
+
                       // Check if image URL is available before creating the widget
                       if (records.containsKey('image') &&
                           records['image'] != null) {
@@ -60,11 +59,11 @@ class ServiceScreen extends StatelessWidget {
                             .shrink(); // Empty widget if image is not available
                       }
                     },
-                  );
-                },
-              ),
-            ],
-          ),
+                  ),
+                );
+              },
+            ),
+          ],
         ),
       ),
     );

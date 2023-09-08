@@ -27,7 +27,7 @@ class AppRouting{
       case '/profile':
         return MaterialPageRoute(builder: (_)=>const ProfileScreen());
       case '/search':
-        return MaterialPageRoute(builder: (_)=>const SearchScreen());
+        return MaterialPageRoute(builder: (_)=>SearchScreen());
       case '/tab':
         return MaterialPageRoute(builder: (_)=>const TabScreen());
       case '/signup':
