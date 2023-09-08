@@ -6,21 +6,19 @@ import 'package:voloc/views/screens/splash_screen.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-   MyApp({super.key});
-
-  final _appRouter =  AppRouting();
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final appRouting = AppRouting();
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: const SplashScreen(),
-      onGenerateRoute: _appRouter.onGenerateRoute,
-      theme: ThemeData.light(),
-    );
+        home: const SplashScreen(),
+        onGenerateRoute: appRouting.onGenerateRoute,
+        );
   }
 }

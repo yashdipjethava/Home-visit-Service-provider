@@ -40,6 +40,7 @@ class ServiceScreen extends StatelessWidget {
                       final records =
                           recordData[index].data() as Map<String, dynamic>;
 
+
                       // Check if image URL is available before creating the widget
                       if (records.containsKey('image') &&
                           records['image'] != null) {

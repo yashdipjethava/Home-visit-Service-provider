@@ -13,9 +13,17 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: const Text("Voloc"),
+        backgroundColor: Colors.orange,
+        centerTitle: true,
+      ),
       body: ListView(
         children: [
+          const Padding(
+            padding: EdgeInsets.all(10.0),
+            child: Text("Famous Services",style: TextStyle(fontSize: 22,fontWeight: FontWeight.bold),),
+          ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
             child: CarouselSlider(
@@ -58,9 +66,9 @@ class HomeScreen extends StatelessWidget {
               const SizedBox(
                 width: 20,
               ),
-              Text(
+              const Text(
                 'Services',
-                style: Theme.of(context).textTheme.titleMedium,
+                style: TextStyle(fontWeight: FontWeight.bold,fontSize: 22),
               ),
               const Spacer(),
               TextButton(

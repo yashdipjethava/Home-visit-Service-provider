@@ -2,14 +2,14 @@
 
 import 'package:flutter/material.dart';
 import 'package:voloc/views/screens/admin/add_data_screen.dart';
-import 'package:voloc/views/screens/emailverify_screen.dart';
-
+import 'package:voloc/views/screens/booking_screen.dart';
 import 'package:voloc/views/screens/admin_screen.dart';
 import 'package:voloc/views/screens/home_screen.dart';
 import 'package:voloc/views/screens/login_screen.dart';
 import 'package:voloc/views/screens/onbording_screen.dart';
 import 'package:voloc/views/screens/profile_screen.dart';
 import 'package:voloc/views/screens/search_screen.dart';
+import 'package:voloc/views/screens/service_book_screen.dart';
 import 'package:voloc/views/screens/splash_screen.dart';
 import 'package:voloc/views/screens/tab_screen.dart';
 
@@ -37,13 +37,13 @@ class AppRouting{
       case '/onboarding':
         return MaterialPageRoute(builder: (_)=>const OnBoardingScreen());
       case '/booking':
-        return MaterialPageRoute(builder: (_)=>const SignUpScreen());
-      case '/emailverify':
-        return MaterialPageRoute(builder: (_) => const EmailVerifyScreen());
+        return MaterialPageRoute(builder: (_)=>const BookingScreen());
       case '/admin':
         return MaterialPageRoute(builder: (_)=>const AdminScreen());
       case '/adddata':
         return MaterialPageRoute(builder: (_)=>const AddData());
+      case '/bookservice':
+        return MaterialPageRoute(builder: (_)=>ServiceBookScreen());
       default:
         return null;
     }

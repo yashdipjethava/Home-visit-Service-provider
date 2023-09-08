@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:voloc/views/screens/admin/admin_tab_screen.dart';
 import '../../logic/bloc/login/login_bloc.dart';
 import '../../logic/cubit/internet/cubit/internet_cubit.dart';
 
@@ -43,7 +44,7 @@ class _UserLogInState extends State<_UserLogIn> {
       if (_email.text.trim() == 'pyajfoundation0211@gmail.com' &&
           _password.text.trim() == 'Pyaj0211@') {
         FirebaseAuth.instance.signInWithEmailAndPassword(email: _email.text.trim(), password: _password.text.trim());
-        Navigator.pushReplacementNamed(context, '/adddata');
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (_)=>const AdminTab()));
       }else{
         ScaffoldMessenger.of(context).clearSnackBars();
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Admin not found')));
@@ -108,7 +109,7 @@ class _UserLogInState extends State<_UserLogIn> {
                             child: Text(
                               "User",
                               style:
-                                  TextStyle(color: Colors.white, fontSize: 18),
+                                  TextStyle(color: Colors.black, fontSize: 18),
                             ),
                           ),
                           const PopupMenuItem(
@@ -117,7 +118,7 @@ class _UserLogInState extends State<_UserLogIn> {
                             child: Text(
                               "Admin",
                               style:
-                                  TextStyle(color: Colors.white, fontSize: 18),
+                                  TextStyle(color: Colors.black, fontSize: 18),
                             ),
                           ),
                         ],

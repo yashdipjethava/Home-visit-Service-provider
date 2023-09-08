@@ -43,21 +43,6 @@ class ImagesForSlider extends StatelessWidget {
                     ),
                   ),
                 ),
-                Positioned(
-                  bottom: 1,
-                  child: TextButton(
-                    onPressed: () {},
-                    child: FittedBox(
-                      child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5),
-                          color: Colors.deepOrangeAccent,
-                        ),
-                        child: const Text('  BOOK NOW  ',style: TextStyle(color: Colors.black)),
-                      ),
-                    ),
-                  ),
-                ),
               ],
             ),
           ),

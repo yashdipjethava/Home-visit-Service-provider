@@ -4,6 +4,7 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:voloc/views/screens/admin/admin_tab_screen.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -27,7 +28,7 @@ class SplashScreen extends StatelessWidget {
         
       }else{
         if(FirebaseAuth.instance.currentUser!.email == 'pyajfoundation0211@gmail.com'){
-          Navigator.pushNamed(context, '/adddata');
+          Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_)=>const AdminTab()));
         }else{
           Navigator.pushReplacementNamed(context, '/tab');
         }
@@ -60,27 +61,3 @@ class SplashScreen extends StatelessWidget {
     );
   }
 }
-//
-//
-// DropdownButton(
-// focusColor: Colors.white,
-// iconEnabledColor: Colors.white,
-// iconDisabledColor: Colors.white,
-// isDense: true,
-// value: defaultval,
-// items: [
-// DropdownMenuItem(
-// child: Text("User"),
-// value: 'User',
-// ),
-// DropdownMenuItem(
-// child: Text("Admin"),
-// value: 'Admin',
-// ),
-// ],
-// onChanged: (String? value) {
-// setState(() {
-// defaultval = value.toString();
-// });
-// },
-// ),
