@@ -6,10 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:transparent_image/transparent_image.dart';
 
-import '../screens/service_book_screen.dart';
-
-class JobServiceDetailWidget extends StatelessWidget {
-  const JobServiceDetailWidget({
+class AdminServiceDetailWidget extends StatelessWidget {
+  const AdminServiceDetailWidget({
+    super.key, 
     required this.price,
     required this.details,
     required this.image,
@@ -244,82 +243,49 @@ class JobServiceDetailWidget extends StatelessWidget {
                 Padding(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: Colors.orangeAccent),
-                          child: TextButton(
-                            onPressed: () {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (_) => ServiceBookScreen(
-                                        title: title,
-                                        image: image,
-                                        details: details,
-                                        price: price,
-                                      )));
-                            },
-                            child: const Text(
-                              'BOOK AGAIN',
-                              style: TextStyle(color: Colors.black87),
-                            ),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(width: 8,),
-                      Expanded(
-                        child: Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: Colors.orangeAccent),
-                          child: subdate == dt
-                              ? TextButton(
-                                  onPressed: () {
-                                    showDialog(
-                                        context: context,
-                                        builder: (context) {
-                                          return CupertinoAlertDialog(
-                                            content: const Text(
-                                                "Are you sure?"),
-                                            actions: [
-                                              TextButton(
-                                                  onPressed: () async {
-                                                    final user =
-                                        FirebaseAuth.instance.currentUser;
-                                    await FirebaseFirestore.instance
-                                        .collection("bookings")
-                                        .doc(user!.uid)
-                                        .collection("user_bookings")
-                                        .doc(deleteData)
-                                        .delete();
-                                    await FirebaseFirestore.instance
-                                        .collection("bookings")
-                                        .doc('OyyVyUTow1dKiARbGjliFRGTuMt2')
-                                        .collection("user_bookings")
-                                        .doc(deleteData)
-                                        .delete();
-                                                    Navigator.of(context).pop();
-                                                    Navigator.of(context).pop();
-                                                  },
-                                                  child: const Text("Yes")),
-                                                  TextButton(onPressed: (){
-                                                    Navigator.pop(context);
-                                                  }, child: const Text("No"))
-                                            ],
-                                          );
-                                        });
-                                  },
-                                  child: const Text(
-                                    'Cancel',
-                                    style: TextStyle(color: Colors.black87),
-                                  ),
-                                )
-                              : const SizedBox(),
-                        ),
-                      ),
-                    ],
+                  child: Expanded(
+                    child: Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.orangeAccent),
+                      child: subdate == dt
+                          ? TextButton(
+                              onPressed: () {
+                                showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return CupertinoAlertDialog(
+                                        content: const Text(
+                                            "Are you sure?"),
+                                        actions: [
+                                          TextButton(
+                                              onPressed: () async {
+                                                final user =
+                                    FirebaseAuth.instance.currentUser;
+                                await FirebaseFirestore.instance
+                                    .collection("bookings")
+                                    .doc(user!.uid)
+                                    .collection("user_bookings")
+                                    .doc(deleteData)
+                                    .delete();
+                                                Navigator.of(context).pop();
+                                                Navigator.of(context).pop();
+                                              },
+                                              child: const Text("Yes")),
+                                              TextButton(onPressed: (){
+                                                Navigator.pop(context);
+                                              }, child: const Text('No'))
+                                        ],
+                                      );
+                                    });
+                              },
+                              child: const Text(
+                                'Cancel',
+                                style: TextStyle(color: Colors.black87),
+                              ),
+                            )
+                          : const SizedBox(),
+                    ),
                   ),
                 ),
               ],

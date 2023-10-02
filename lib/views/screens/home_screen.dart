@@ -14,7 +14,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Voloc"),
+        title: const Text("ServeEasy"),
         backgroundColor: Colors.orange,
         centerTitle: true,
       ),
@@ -90,7 +90,7 @@ class HomeScreen extends StatelessWidget {
             builder: (BuildContext context,
                 AsyncSnapshot<QuerySnapshot> snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return const CircularProgressIndicator(); // Show loading indicator while data is loading
+                return const Center(child: CircularProgressIndicator()); // Show loading indicator while data is loading
               }
 
               if (snapshot.hasError) {

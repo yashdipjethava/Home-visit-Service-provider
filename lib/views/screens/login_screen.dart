@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -247,7 +248,7 @@ class _UserLogInState extends State<_UserLogIn> {
                                   showDialog(
                                   context: context,
                                   builder: (context) {
-                                    return AlertDialog(
+                                    return CupertinoAlertDialog(
                                       content: Text(
                                           state.error),
                                       actions: [

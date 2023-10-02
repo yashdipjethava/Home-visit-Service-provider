@@ -2,7 +2,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import '../../common_widget/job_service_widget.dart';
+import '../../common_widget/admin_sevice.dart';
 
 class AdminBookingScreen extends StatelessWidget {
   const AdminBookingScreen({super.key});
@@ -12,9 +12,9 @@ class AdminBookingScreen extends StatelessWidget {
     final user = FirebaseAuth.instance.currentUser;
     return Scaffold(
       body: StreamBuilder(
-            stream:FirebaseFirestore.instance.collection('bookings').doc(user!.uid).collection("user_bookings").snapshots(),
+            stream:FirebaseFirestore.instance.collection('bookings').doc(user!.uid).collection("user_bookings").orderBy("date_time").snapshots(),
             builder: (BuildContext context,
-                AsyncSnapshot<QuerySnapshot> snapshot) {
+              AsyncSnapshot<QuerySnapshot> snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(child: CircularProgressIndicator()); // Show loading indicator while data is loading
               }
@@ -35,7 +35,7 @@ class AdminBookingScreen extends StatelessWidget {
                     return Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 15, vertical: 5),
-                      child: JobServiceWidget(
+                      child: AdminServiceWidget(
                         title: records['title'],
                         details: records['details'],
                         image: records['image'],

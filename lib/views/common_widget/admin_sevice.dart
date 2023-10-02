@@ -2,10 +2,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:transparent_image/transparent_image.dart';
-import 'job_service_details.dart';
+import 'admin_service_detail.dart';
 
-class JobServiceWidget extends StatelessWidget {
-  const JobServiceWidget(
+class AdminServiceWidget extends StatelessWidget {
+  const AdminServiceWidget(
       {super.key,
       required this.price,
       required this.details,
@@ -83,7 +83,7 @@ class JobServiceWidget extends StatelessWidget {
                   onPressed: () => Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => JobServiceDetailWidget(
+                      builder: (context) => AdminServiceDetailWidget(
                         price: price,
                         image: image,
                         details: details,

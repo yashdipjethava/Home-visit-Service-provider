@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:transparent_image/transparent_image.dart';
 import 'package:voloc/views/common_widget/jobDetailWidget.dart';
 
 class JobWidget extends StatelessWidget {
   const JobWidget(
-      {super.key, required this.price,
+      {super.key,
+      required this.price,
       required this.details,
       required this.image,
       required this.title});
@@ -30,15 +32,8 @@ class JobWidget extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  '₹$price',
-                  style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.green,
-                      fontSize: 17),
-                ),
                 const SizedBox(
-                  height: 15,
+                  height: 8,
                 ),
                 Row(
                   children: [
@@ -55,12 +50,18 @@ class JobWidget extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(
-                  height: 10,
+                  height: 8,
                 ),
-                const SizedBox(
-                  height: 10,
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal:10.0),
+                  child: Text(
+                    '₹$price',
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.green,
+                        fontSize: 17),
+                  ),
                 ),
-                const Spacer(),
                 TextButton(
                   onPressed: () => Navigator.push(
                     context,
@@ -95,19 +96,22 @@ class JobWidget extends StatelessWidget {
               height: double.infinity,
               width: double.infinity,
               child: ClipRRect(
-                borderRadius: const BorderRadius.only(
-                  topRight: Radius.circular(10),
-                  bottomRight: Radius.circular(10),
-                  bottomLeft: Radius.circular(10),
-                  topLeft: Radius.circular(10),
-                ),
-                child: Hero(
-                  tag: image,
-                  child: FadeInImage(placeholder: NetworkImage(
-                    '$image',
-                  ), image: NetworkImage('$image',),fit: BoxFit.cover,),
-                )
-              ),
+                  borderRadius: const BorderRadius.only(
+                    topRight: Radius.circular(10),
+                    bottomRight: Radius.circular(10),
+                    bottomLeft: Radius.circular(10),
+                    topLeft: Radius.circular(10),
+                  ),
+                  child: Hero(
+                    tag: image,
+                    child: FadeInImage(
+                      placeholder: MemoryImage(kTransparentImage),
+                      image: NetworkImage(
+                        '$image',
+                      ),
+                      fit: BoxFit.cover,
+                    ),
+                  )),
             ),
           ),
         ],

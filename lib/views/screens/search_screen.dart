@@ -59,10 +59,7 @@ class _SearchScreenState extends State<SearchScreen> {
         FocusScope.of(context).unfocus();
       },
       child: Scaffold(
-        appBar: AppBar(
-          title: Text('Search'),
-        ),
-        body: Container(
+        body: SafeArea(
           child: Column(
             children: <Widget>[
               Padding(
@@ -75,7 +72,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   decoration: InputDecoration(
                     labelText: "Search",
                     hintText: "Search",
-                    prefixIcon: const Icon(Icons.search),
+                    prefixIcon: const Icon(Icons.search,color: Colors.orange,),
                     suffixIcon: TextButton.icon(
                         onPressed: () {
                           setState(() {
@@ -83,7 +80,7 @@ class _SearchScreenState extends State<SearchScreen> {
                             filteredItems = allItems;
                           });
                         },
-                        icon: const Icon(Icons.cancel),
+                        icon: const Icon(Icons.cancel,color: Colors.orange,),
                         label: const Text('')),
                     border: const OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(25.0)),
@@ -97,7 +94,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   physics: const AlwaysScrollableScrollPhysics(),
                   itemBuilder: (context, index) {
                     final record = filteredItems[index];
-
+        
                     // Create a JobWidget only for the matching items
                     return Padding(
                       padding: const EdgeInsets.symmetric(
