@@ -42,17 +42,19 @@ class SplashScreen extends StatelessWidget {
         children: [
          Stack(
            children: [
-             Image.asset("assets/icons/logo.png",height: 200,width: 200,),
-             Padding(
-               padding: EdgeInsets.only(left: MediaQuery.of(context).size.width*0.18,top: MediaQuery.of(context).size.width*0.43,right: MediaQuery.of(context).size.width*0.18),
-               child: AnimatedTextKit(
-                 animatedTexts: [
-                   WavyAnimatedText('Voloc',textStyle: const TextStyle(color: Colors.white,fontSize: 22)),
-                 ],
-                 isRepeatingAnimation: true,
-                 totalRepeatCount: 3,
-               )
+             Center(child: Column(
+               children: [
+                 Image.asset("assets/icons/logo.png",height: 200,width: 200,),
+                 AnimatedTextKit(
+               animatedTexts: [
+                 WavyAnimatedText('ServeEasy',textStyle: const TextStyle(color: Colors.white,fontSize: 22)),
+               ],
+               isRepeatingAnimation: true,
+               totalRepeatCount: 3,
              ),
+               ],
+             )),
+             
            ],
          )
         ],

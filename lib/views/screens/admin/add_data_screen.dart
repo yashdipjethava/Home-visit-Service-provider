@@ -141,29 +141,27 @@ class _AddDataState extends State<AddData> {
                           ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: TextFormField(
-                    decoration: const InputDecoration(
-                      label: Text(
-                        'Price',
-                        style: TextStyle(color: Colors.black),
-                      ),
-                      border: OutlineInputBorder(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(20)),
-                                    borderSide: BorderSide(width: 4),
-                                  ),
+                const SizedBox(height: 10,),
+                TextFormField(
+                  decoration: const InputDecoration(
+                    label: Text(
+                      'Price',
+                      style: TextStyle(color: Colors.black),
                     ),
-                    validator: (value) {
-                      if (_priceController.text.trim().isEmpty) {
-                        return 'Enter price';
-                      }
-                      return null;
-                    },
-                    controller: _priceController,
-                    keyboardType: TextInputType.number,
+                    border: OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(20)),
+                                  borderSide: BorderSide(width: 4),
+                                ),
                   ),
+                  validator: (value) {
+                    if (_priceController.text.trim().isEmpty) {
+                      return 'Enter price';
+                    }
+                    return null;
+                  },
+                  controller: _priceController,
+                  keyboardType: TextInputType.number,
                 ),
                 const SizedBox(
                   height: 10,
@@ -195,11 +193,12 @@ class _AddDataState extends State<AddData> {
                   height: 30,
                 ),
                 SizedBox(
-                  width: 150,
+                  width: 350,
+                  height: 60,
                   child: ElevatedButton(
                       onPressed: _submitData,
                       child: isLoading
-                          ? const Center(child: CircularProgressIndicator())
+                          ? const Center(child: CircularProgressIndicator(color: Colors.black,))
                           : const Text('ADD')),
                 )
               ],

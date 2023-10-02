@@ -1,7 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_sign_in/google_sign_in.dart';
+import 'package:voloc/views/screens/about_us.dart';
+import 'package:voloc/views/screens/user_image.dart';
 import '../../logic/bloc/user/user_bloc.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -19,9 +21,22 @@ class ProfileScreen extends StatelessWidget {
 class _ProfileScreen extends StatelessWidget {
   const _ProfileScreen();
 
-  _signOut() async {
-    await FirebaseAuth.instance.signOut();
-    GoogleSignIn().signOut();
+  _signOut(context) {
+    showDialog(
+      context: context,
+      builder: (context) {
+      return CupertinoAlertDialog(content: const Text("Are you sure to LogOut?"),
+    actions: [
+      TextButton(onPressed: () async {
+        await FirebaseAuth.instance.signOut();
+        // ignore: use_build_context_synchronously
+        Navigator.pushReplacementNamed(context, '/login');
+      }, child: const Text("LogOut")),
+      TextButton(onPressed: (){
+        Navigator.pop(context);
+      }, child: const Text("Stay"))
+    ],);
+    });
   }
 
   @override
@@ -35,6 +50,7 @@ class _ProfileScreen extends StatelessWidget {
         builder: (context, state) {
           final userEmail = state.userModel?.email;
           final userName = state.userModel?.username;
+          final number = state.userModel?.number;
           final userImage = state.userModel?.image;
           if (state.error != null) {
             ScaffoldMessenger.of(context)
@@ -44,64 +60,123 @@ class _ProfileScreen extends StatelessWidget {
             child: Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(top: 10.0),
-                  child: SizedBox(
-                    width: 120,
-                    height: 120,
-                    child: state.isLoading
-                        ? const CircleAvatar(
-                            radius: 30,
-                            backgroundImage:
-                                AssetImage('assets/img/person.png'),
-                          )
-                        : CircleAvatar(
-                            radius: 30,
-                            backgroundImage:
-                                const AssetImage('assets/img/person.png'),
-                            foregroundImage: NetworkImage('$userImage'),
-                          ),
+                  padding: const EdgeInsets.only(top: 10.0, left: 20),
+                  child: Row(
+                    children: [
+                      GestureDetector(
+                        onTap: (){
+                          Navigator.of(context).push(MaterialPageRoute(builder: (_)=> UserImage(image: userImage!,)));
+                        },
+                        child: SizedBox(
+                          width: 120,
+                          height: 120,
+                          child: state.isLoading
+                              ? const CircleAvatar(
+                                  radius: 30,
+                                  backgroundImage:
+                                      AssetImage('assets/img/person.png'),
+                                )
+                              : CircleAvatar(
+                                  radius: 30,
+                                  backgroundImage:
+                                      const AssetImage('assets/img/person.png'),
+                                  foregroundImage: NetworkImage('$userImage'),
+                                ),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      const Expanded(
+                          child: Text(
+                        "Hey, User you are special for us.Hope our service makes you happier",
+                        style: TextStyle(
+                            color: Colors.teal,
+                            fontWeight: FontWeight.w500,
+                            fontSize: 16),
+                      ))
+                    ],
                   ),
                 ),
                 const SizedBox(height: 10),
-                Text(
-                  state.isLoading ? 'UserName' : '$userName',
-                  style: const TextStyle(
-                      fontWeight: FontWeight.bold, fontSize: 25),
+                const Divider(thickness: 1,),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal:20.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                            "UserName:",
+                            style: TextStyle(
+                                color: Colors.teal,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold),
+                          ),
+                      Text(
+                        state.isLoading ? 'UserName' : '$userName',
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 18),
+                      ),
+                    ],
+                  ),
                 ),
-                Text(
-                  state.isLoading ? 'Email' : '$userEmail',
-                  style: const TextStyle(
-                      fontWeight: FontWeight.normal, fontSize: 20),
+                const SizedBox(height: 10,),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal:20.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                            "Email:",
+                            style: TextStyle(
+                                color: Colors.teal,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold),
+                          ),
+                      Text(
+                        state.isLoading ? 'Email' : '$userEmail',
+                        style: const TextStyle(
+                            fontWeight: FontWeight.normal, fontSize: 20),
+                      ),
+                    ],
+                  ),
                 ),
-                const SizedBox(height: 30),
-                const Divider(thickness: 0.1),
-                const SizedBox(height: 02),
-
-                //menu
-                profileMenuWidget(
-                    title: "Settings", icon: Icons.settings, onpress: () {}),
-                profileMenuWidget(
-                    title: "Billing Details",
-                    icon: Icons.wallet,
-                    onpress: () {}),
-                profileMenuWidget(
-                    title: "My profile",
-                    icon: Icons.lock_person_rounded,
-                    onpress: () {}),
+                const SizedBox(height: 10,),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal:20.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                            "Mobile:",
+                            style: TextStyle(
+                                color: Colors.teal,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold),
+                          ),
+                      Text(
+                        state.isLoading ? 'Mobile' : '$number',
+                        style: const TextStyle(
+                            fontWeight: FontWeight.normal, fontSize: 20),
+                      ),
+                    ],
+                  ),
+                ),
                 const Divider(thickness: 0.1),
                 const SizedBox(height: 10),
                 profileMenuWidget(
                     title: "About us",
                     icon: Icons.info_outline,
-                    onpress: () {}),
+                    onpress: () {
+                      Navigator.of(context).push(MaterialPageRoute(builder: (_)=>const AboutUs()));
+                    }),
                 profileMenuWidget(
                     title: "Log out",
                     icon: Icons.logout,
                     textcolor: Colors.red,
                     endIcon: false,
                     onpress: () {
-                      _signOut();
-                      Navigator.pushReplacementNamed(context, '/login');
+                      _signOut(context);
                     }),
               ],
             ),
