@@ -8,12 +8,14 @@ class JobWidget extends StatelessWidget {
       required this.price,
       required this.details,
       required this.image,
-      required this.title});
+      required this.title,
+      this.revser,});
 
   final price;
   final details;
   final image;
   final title;
+  final revser;
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +55,7 @@ class JobWidget extends StatelessWidget {
                   height: 8,
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal:10.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
                   child: Text(
                     '₹$price',
                     style: const TextStyle(
@@ -71,6 +73,7 @@ class JobWidget extends StatelessWidget {
                         image: image,
                         details: details,
                         title: title,
+                        revser: revser,
                       ),
                     ),
                   ),

@@ -39,7 +39,7 @@ class ServiceScreen extends StatelessWidget {
                     itemBuilder: (context, index) {
                       final records =
                           recordData[index].data() as Map<String, dynamic>;
-
+                      final revser = recordData[index].id;
 
                       // Check if image URL is available before creating the widget
                       if (records.containsKey('image') &&
@@ -51,7 +51,8 @@ class ServiceScreen extends StatelessWidget {
                             title: records['title'],
                             details: records['details'],
                             image: records['image'],
-                            price: records['price'],
+                            price: records['price'],  
+                            revser: revser,
                           ),
                         );
                       } else {

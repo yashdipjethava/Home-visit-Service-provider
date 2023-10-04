@@ -94,7 +94,6 @@ class _SearchScreenState extends State<SearchScreen> {
                   physics: const AlwaysScrollableScrollPhysics(),
                   itemBuilder: (context, index) {
                     final record = filteredItems[index];
-        
                     // Create a JobWidget only for the matching items
                     return Padding(
                       padding: const EdgeInsets.symmetric(
