@@ -17,7 +17,7 @@ class _AddDataState extends State<AddData> {
   final _titleController = TextEditingController();
   final _priceController = TextEditingController();
   final _detailsController = TextEditingController();
-  File? _selectImage;
+  File? _selectImage; 
 
   final _dataKey = GlobalKey<FormState>();
 
@@ -42,7 +42,7 @@ class _AddDataState extends State<AddData> {
           "details": _detailsController.text
         });
         // ignore: use_build_context_synchronously
-        ScaffoldMessenger.of(context).clearSnackBars();
+        ScaffoldMessenger.of(context).clearSnackBars(); 
         // ignore: use_build_context_synchronously
         ScaffoldMessenger.of(context)
             .showSnackBar(const SnackBar(content: Text('Data Inserted')));

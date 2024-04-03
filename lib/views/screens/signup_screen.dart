@@ -170,15 +170,12 @@ class _UserRegistrationState extends State<_UserRegistration> {
                             }
                           }),
                         ),
-                        const SizedBox(
-                          height: 15,
-                        ),
                         BlocBuilder<SignUpBloc, SignUpState>(
                           builder: (context, state) {
                             String? error;
                             if(state is SignUpUserNameInvalidState){
                               error = state.error;
-                            }
+                            } 
                             return TextFormField(
                               controller: _username,
                               decoration: InputDecoration(
@@ -271,7 +268,7 @@ class _UserRegistrationState extends State<_UserRegistration> {
                             if (state is PassVisibilityState) {
                               visibility = state.isOn;
                             }
-                            return TextField(
+                            return TextField( 
                               controller: _password,
                               decoration: InputDecoration(
                                 border: const OutlineInputBorder(
@@ -288,18 +285,18 @@ class _UserRegistrationState extends State<_UserRegistration> {
                                   Icons.lock_outline,
                                   color: Colors.black26,
                                 ),
-                                suffixIcon: IconButton(
-                                  icon: Icon(visibility
-                                      ? Icons.visibility
-                                      : Icons.visibility_off),
-                                  onPressed: () {
-                                    visibility
-                                        ? BlocProvider.of<SignUpBloc>(context)
-                                            .add(PassVisibilityFalseEvent())
-                                        : BlocProvider.of<SignUpBloc>(context)
-                                            .add(PassVisibilityTrueEvent());
-                                  },
-                                ),
+                                  suffixIcon: IconButton(
+                                    icon: Icon(visibility
+                                        ? Icons.visibility
+                                        : Icons.visibility_off),
+                                    onPressed: () {
+                                      visibility
+                                          ? BlocProvider.of<SignUpBloc>(context)
+                                              .add(PassVisibilityFalseEvent())
+                                          : BlocProvider.of<SignUpBloc>(context)
+                                              .add(PassVisibilityTrueEvent());
+                                    },
+                                  ),
                               ),
                               obscureText: visibility,
                             );
